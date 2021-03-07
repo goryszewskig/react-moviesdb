@@ -88,10 +88,10 @@ jobs:
             aws configure set preview.cloudfront
             if [ "${CURRENT_BRANCH}" == "master" ]
             then
-              aws cloudfront create-invalidation --distribution-id ${PRODUCTION_DISTRIBUTION_ID} --paths /\*
+              aws cloudfront create-invalidation --distribution-id ${DEV_DISTRIBUTION_ID} --paths /\*
             elif [ "${CURRENT_BRANCH}" == "staging" ]
             then
-              aws cloudfront create-invalidation --distribution-id ${STAGING_DISTRIBUTION_ID} --paths /\*
+              aws cloudfront create-invalidation --distribution-id ${DEV_DISTRIBUTION_ID} --paths /\*
             else
               aws cloudfront create-invalidation --distribution-id ${DEV_DISTRIBUTION_ID} --paths /\*
             fi
@@ -105,7 +105,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - dev
                 - staging
                 - master
       - deploy-to-aws-cloudfront:
@@ -114,6 +114,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - dev
                 - staging
                 - master
